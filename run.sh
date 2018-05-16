@@ -26,6 +26,62 @@ if [ ! -d "$GF_PATHS_PLUGINS" ]; then
 fi
 
 
+
+# cat $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+if [[ -z "${DS_NAME}" ]]; then
+    echo "Variable: DS_NAME not set"
+else
+#     cat $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+    sed -i -e "s#name:.*#name: $DS_NAME#" $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml   
+fi
+
+
+if [[ -z "${DS_ACCESS}" ]]; then
+    echo "Variable: DS_ACCESS not set"
+else
+#     cat $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+    sed -i -e "s#access:.*#access: $DS_ACCESS#" $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+fi
+
+if [[ -z "${DS_TYPE}" ]]; then
+    echo "Variable: DS_TYPE not set"
+else
+#     cat $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+    sed -i -e "s#type:.*#type: $DS_TYPE#" $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+fi
+
+if [[ -z "${DS_DATABASE}" ]]; then
+    echo "Variable: DS_DATABASE not set"
+else
+#     cat $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+    sed -i -e "s#database:.*#database: $DS_DATABASE#" $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+fi
+
+if [[ -z "${DS_USER}" ]]; then
+    echo "Variable: DS_USER not set"
+else
+#     cat $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+    sed -i -e "s#user:.*#user: $DS_USER#" $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+fi
+
+if [[ -z "${DS_PASSWORD}" ]]; then
+    echo "Variable: DS_PASSWORD not set"
+else
+#     cat $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+    sed -i -e "s#password:.*#password: $DS_PASSWORD#" $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+fi
+
+if [[ -z "${DS_URL}" ]]; then
+    echo "Variable: DS_URL not set"
+else
+#     cat $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+    sed -i -e "s#url:.*#url: $DS_URL#" $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+fi
+
+cat $GF_PATHS_PROVISIONING/datasources/influxDB_datasource.yaml
+
+
+
 if [ ! -z ${GF_AWS_PROFILES+x} ]; then
     > "$GF_PATHS_HOME/.aws/credentials"
 

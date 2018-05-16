@@ -26,12 +26,18 @@ RUN apt-get update && apt-get install -qq -y tar libfontconfig curl ca-certifica
              "$GF_PATHS_DATA" && \
     cp "$GF_PATHS_HOME/conf/sample.ini" "$GF_PATHS_CONFIG" && \
     cp "$GF_PATHS_HOME/conf/ldap.toml" /etc/grafana/ldap.toml && \
-    chown -R grafana:grafana "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" && \
-    chmod 777 "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS"
+    chown -R grafana:grafana "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" "$GF_PATHS_PROVISIONING" && \
+    chmod 777 "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" "$GF_PATHS_PROVISIONING"
 
 EXPOSE 3000
 
 COPY ./run.sh /run.sh
+COPY influxDB_datasource.yaml $GF_PATHS_PROVISIONING/datasources    
+COPY dashboard.yaml $GF_PATHS_PROVISIONING/dashboards
+
+RUN mkdir -p /var/lib/grafana/dashboards
+COPY dashboard.json /var/lib/grafana/dashboards
+RUN chown -R grafana /var/lib/grafana/dashboards
 
 USER grafana
 WORKDIR /
